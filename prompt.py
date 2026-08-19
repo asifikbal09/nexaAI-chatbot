@@ -99,7 +99,41 @@ Summary:
 )
 
 
-from langchain_core.prompts import PromptTemplate
+
+classification_prompt = PromptTemplate(
+    input_variables=["question"],
+    template="""
+You are a question classifier for NexaAI.
+
+Classify the user's question into exactly ONE of these categories:
+
+- programming
+- math
+- general
+
+Rules:
+
+1. Use "programming" for questions about programming languages,
+   software development, coding, algorithms, databases, APIs,
+   frameworks, debugging, or computer programming.
+
+2. Use "math" for ANY mathematical question, including:
+   arithmetic, addition, subtraction, multiplication, division,
+   equations, algebra, geometry, calculus, derivatives,
+   percentages, probability, mathematical expressions, etc.
+
+3. Use "general" for questions that are not related to programming
+   or mathematics.
+
+Return ONLY one word:
+programming
+math
+general
+
+User Question:
+{question}
+""",
+)
 
 
 structured_output_prompt = PromptTemplate(
